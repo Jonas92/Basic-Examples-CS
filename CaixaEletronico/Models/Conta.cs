@@ -9,7 +9,7 @@ namespace CaixaEletronico.Models
     class Conta
     {
         public long Numero { get; set; }
-        public double Saldo { get; private set; }
+        public double Saldo { get; protected set; }
         public Cliente Titular { get; set; }
 
         public Conta(long numero, Cliente titular)
@@ -24,7 +24,7 @@ namespace CaixaEletronico.Models
             this.Saldo -= valor;
         }
 
-        public void Deposita(double valor)
+        public virtual void Deposita(double valor)
         {
             this.Saldo += valor;
         }
@@ -33,6 +33,11 @@ namespace CaixaEletronico.Models
         {
             this.Saca(valor);
             destino.Deposita(valor);
+        }
+
+        public override string ToString()
+        {
+            return "Número: " + this.Numero + " - Saldo: R$ " + this.Saldo;
         }
     }
 }

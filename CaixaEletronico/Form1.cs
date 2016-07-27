@@ -1,4 +1,5 @@
 ﻿using CaixaEletronico.Models;
+using CaixaEletronico.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,13 +23,29 @@ namespace CaixaEletronico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Cliente firstClient = new Cliente("Jonas", "030.678");
+            Conta c = new Conta(234, new Cliente("João das Couves", "893849"));
+            c.Deposita(5000);
 
-            Conta conta = new Conta(121212, firstClient);
+            Conta cc = new ContaCorrente(123, new Cliente("João das Laranjeiras", "783"));
+            cc.Deposita(2500);
 
-            conta.Deposita(200);
+            Conta cp = new ContaPoupanca(789, new Cliente("Maria da Graça", "564356"));
+            cp.Deposita(2500);
 
-            MessageBox.Show(conta.Saldo + " - " + conta.Titular.Nome);
+            TotalizadorDeContas totalizador = new TotalizadorDeContas();
+            totalizador.Adiciona(c);
+            totalizador.Adiciona(cc);
+            totalizador.Adiciona(cp);
+
+            Banco banco = new Banco();
+            banco.Adiciona(c);
+            banco.Adiciona(cc);
+            banco.Adiciona(cc);
+
+            MessageBox.Show(totalizador.SaldoTotal + "");
+            MessageBox.Show(banco.TotalDeContas() + "");
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)

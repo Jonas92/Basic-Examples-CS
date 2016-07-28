@@ -38,6 +38,8 @@
             this.efetuaDepositoBtn = new System.Windows.Forms.Button();
             this.efetuaSaqueBtn = new System.Windows.Forms.Button();
             this.comboContas = new System.Windows.Forms.ComboBox();
+            this.comboContasParaTEDDOC = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -90,14 +92,14 @@
             // 
             // valorParaOperacaoTxt
             // 
-            this.valorParaOperacaoTxt.Location = new System.Drawing.Point(72, 183);
+            this.valorParaOperacaoTxt.Location = new System.Drawing.Point(72, 207);
             this.valorParaOperacaoTxt.Name = "valorParaOperacaoTxt";
             this.valorParaOperacaoTxt.Size = new System.Drawing.Size(128, 20);
             this.valorParaOperacaoTxt.TabIndex = 7;
             // 
             // efetuaDepositoBtn
             // 
-            this.efetuaDepositoBtn.Location = new System.Drawing.Point(72, 209);
+            this.efetuaDepositoBtn.Location = new System.Drawing.Point(72, 233);
             this.efetuaDepositoBtn.Name = "efetuaDepositoBtn";
             this.efetuaDepositoBtn.Size = new System.Drawing.Size(61, 23);
             this.efetuaDepositoBtn.TabIndex = 8;
@@ -107,7 +109,7 @@
             // 
             // efetuaSaqueBtn
             // 
-            this.efetuaSaqueBtn.Location = new System.Drawing.Point(139, 209);
+            this.efetuaSaqueBtn.Location = new System.Drawing.Point(139, 233);
             this.efetuaSaqueBtn.Name = "efetuaSaqueBtn";
             this.efetuaSaqueBtn.Size = new System.Drawing.Size(61, 23);
             this.efetuaSaqueBtn.TabIndex = 9;
@@ -124,11 +126,32 @@
             this.comboContas.TabIndex = 10;
             this.comboContas.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // comboContasParaTEDDOC
+            // 
+            this.comboContasParaTEDDOC.FormattingEnabled = true;
+            this.comboContasParaTEDDOC.Location = new System.Drawing.Point(12, 180);
+            this.comboContasParaTEDDOC.Name = "comboContasParaTEDDOC";
+            this.comboContasParaTEDDOC.Size = new System.Drawing.Size(140, 21);
+            this.comboContasParaTEDDOC.TabIndex = 11;
+            this.comboContasParaTEDDOC.SelectedIndexChanged += new System.EventHandler(this.comboContasParaTEDDOC_SelectedIndexChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(158, 178);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(61, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Transferir";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.comboContasParaTEDDOC);
             this.Controls.Add(this.comboContas);
             this.Controls.Add(this.efetuaSaqueBtn);
             this.Controls.Add(this.efetuaDepositoBtn);
@@ -158,6 +181,8 @@
         private System.Windows.Forms.Button efetuaDepositoBtn;
         private System.Windows.Forms.Button efetuaSaqueBtn;
         private System.Windows.Forms.ComboBox comboContas;
+        private System.Windows.Forms.ComboBox comboContasParaTEDDOC;
+        private System.Windows.Forms.Button button1;
     }
 }
 

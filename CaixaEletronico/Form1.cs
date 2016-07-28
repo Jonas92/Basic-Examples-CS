@@ -16,6 +16,7 @@ namespace CaixaEletronico
     {
         private Conta[] contas = new Conta[3];
         private Conta contaSelecionada;
+        private Conta contaParaTEDDOC;
 
         public Form1()
         {
@@ -26,14 +27,15 @@ namespace CaixaEletronico
         {
 
             CriaContas();
-            AdicionaContasNoCombo();
+            AdicionaContasNo(comboContas);
+            AdicionaContasNo(comboContasParaTEDDOC);
 
         }
 
-        private void AdicionaContasNoCombo()
+        private void AdicionaContasNo(ComboBox combo)
         {
             foreach (Conta conta in contas)
-                comboContas.Items.Add(conta.Titular.Nome);
+                combo.Items.Add(conta.Titular.Nome);
         }
 
         private void CriaContas()
@@ -70,11 +72,11 @@ namespace CaixaEletronico
                 double valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
                 contaSelecionada.Deposita(valor);
                 Mostra(contaSelecionada);
-                LimpaValorDeDeposito();
+                LimpaValor();
             }
         }
 
-        private void LimpaValorDeDeposito()
+        private void LimpaValor()
         {
             valorParaOperacaoTxt.Text = "";
         }
@@ -88,15 +90,39 @@ namespace CaixaEletronico
                 double valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
                 contaSelecionada.Saca(valor);
                 Mostra(contaSelecionada);
-                LimpaValorDeDeposito();
+                LimpaValor();
             }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int indiceDaContaNoCombo = comboContas.SelectedIndex;
-            contaSelecionada = contas[indiceDaContaNoCombo];
+            contaSelecionada = PesquisaContaPor(comboContas.SelectedIndex);
             Mostra(contaSelecionada);
+        }
+
+        private Conta PesquisaContaPor(int indiceDaContaNoCombo)
+        {
+            return contas[indiceDaContaNoCombo];
+        }
+
+        private void comboContasParaTEDDOC_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            contaParaTEDDOC = PesquisaContaPor(comboContasParaTEDDOC.SelectedIndex);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (null == contaSelecionada)
+                MessageBox.Show("Por favor, selecione a conta de origem para efetuar a transferência!");
+            else if (null == contaParaTEDDOC)
+                MessageBox.Show("Por favor, selecione a conta de destino para efetuar a transferência!");
+            else
+            {
+                double valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
+                contaSelecionada.Transfere(valor, PesquisaContaPor(comboContasParaTEDDOC.SelectedIndex));
+                Mostra(contaSelecionada);
+                LimpaValor();
+            }
         }
     }
 }

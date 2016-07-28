@@ -39,5 +39,11 @@ namespace CaixaEletronico.Models
         {
             return "Número: " + this.Numero + " - Saldo: R$ " + this.Saldo;
         }
+
+        public override bool Equals(object obj)
+        {
+            Conta outraConta = (Conta)obj;
+            return this.Numero.Equals(outraConta.Numero);
+        }
     }
 }

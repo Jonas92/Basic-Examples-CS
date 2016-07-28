@@ -116,6 +116,8 @@ namespace CaixaEletronico
                 MessageBox.Show("Por favor, selecione a conta de origem para efetuar a transferência!");
             else if (null == contaParaTEDDOC)
                 MessageBox.Show("Por favor, selecione a conta de destino para efetuar a transferência!");
+            else if (contaSelecionada.Equals(contaParaTEDDOC))
+                MessageBox.Show("Não é possível fazer transferência para a mesma conta");
             else
             {
                 double valor = Convert.ToDouble(valorParaOperacaoTxt.Text);

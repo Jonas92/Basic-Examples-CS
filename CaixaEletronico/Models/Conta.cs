@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CaixaEletronico.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,18 @@ namespace CaixaEletronico.Models
 
         public void Saca(double valor)
         {
+            if (SaldoInsuficienteParaSacar(valor))
+                throw new SaldoInsuficienteException("Saldo insuficiente!");
+
+            if (valor <= 0)
+                throw new ArgumentException("Valor inválido!");
+            
             this.Saldo -= valor;
+        }
+
+        private bool SaldoInsuficienteParaSacar(double valor)
+        {
+            return this.Saldo < valor;
         }
 
         public abstract void Deposita(double valor);

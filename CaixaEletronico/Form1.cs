@@ -1,4 +1,5 @@
-﻿using CaixaEletronico.Models;
+﻿using CaixaEletronico.Exceptions;
+using CaixaEletronico.Models;
 using CaixaEletronico.Util;
 using System;
 using System.Collections.Generic;
@@ -83,15 +84,30 @@ namespace CaixaEletronico
 
         private void efetuaSaqueBtn_Click(object sender, EventArgs e)
         {
-            if (null == contaSelecionada)
-                MessageBox.Show("Por favor, selecione uma conta antes de realizar qualquer operação!");
-            else
+
+            try
             {
                 double valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
                 contaSelecionada.Saca(valor);
                 Mostra(contaSelecionada);
+            }
+            catch (SaldoInsuficienteException si)
+            {
+                MessageBox.Show(si.Message);
+            }
+            catch (ArgumentException a)
+            {
+                MessageBox.Show(a.Message);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Erro na operação! Por favor, verifique novamente os dados informados e tente novamente");
+            }
+            finally
+            {
                 LimpaValor();
             }
+
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

@@ -57,8 +57,11 @@
     <Compile Include="Models\Conta.cs" />
     <Compile Include="Models\ContaCorrente.cs" />
     <Compile Include="Models\ContaPoupanca.cs" />
+    <Compile Include="Models\SeguroDeVida.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\GerenciadorDeImposto.cs" />
+    <Compile Include="Util\ITributavel.cs" />
     <Compile Include="Util\TotalizadorDeContas.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

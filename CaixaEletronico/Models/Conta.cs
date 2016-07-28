@@ -40,6 +40,13 @@ namespace CaixaEletronico.Models
 
         public void Transfere(double valor, Conta destino)
         {
+
+            if (valor <= 0)
+                throw new ArgumentException("Valor inválido!");
+            if (this == destino)
+                throw new ArgumentException("As contas de origem e destino devem ser diferentes!");
+
+
             this.Saca(valor);
             destino.Deposita(valor);
         }

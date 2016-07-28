@@ -131,6 +131,10 @@ namespace CaixaEletronico
             {
                 MessageBox.Show(a.Message);
             }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Você deve selecionar uma conta para efetuar esta operação!");
+            }
             catch (Exception)
             {
                 MessageBox.Show("Erro na operação! Por favor, verifique novamente os dados informados e tente novamente");
@@ -160,17 +164,25 @@ namespace CaixaEletronico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (null == contaSelecionada)
-                MessageBox.Show("Por favor, selecione a conta de origem para efetuar a transferência!");
-            else if (null == contaParaTEDDOC)
-                MessageBox.Show("Por favor, selecione a conta de destino para efetuar a transferência!");
-            else if (contaSelecionada.Equals(contaParaTEDDOC))
-                MessageBox.Show("Não é possível fazer transferência para a mesma conta");
-            else
+            try
             {
-                double valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
-                contaSelecionada.Transfere(valor, PesquisaContaPor(comboContasParaTEDDOC.SelectedIndex));
+                contaSelecionada.Transfere(ValorInserido(), PesquisaContaPor(comboContasParaTEDDOC.SelectedIndex));
                 Mostra(contaSelecionada);
+            }
+            catch (ArgumentException a)
+            {
+                MessageBox.Show(a.Message);
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Você deve selecionar uma conta de origem e outra de destino para efetuar esta operação!");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Erro na operação! Por favor, verifique novamente os dados informados e tente novamente");
+            }
+            finally
+            {
                 LimpaValor();
             }
         }

@@ -14,6 +14,9 @@ namespace CaixaEletronico.Models
 
         public override void Deposita(double valor)
         {
+            if (valor <= 0)
+                throw new ArgumentException("Valor inválido!");
+            
             this.Saldo += valor;
         }
     }

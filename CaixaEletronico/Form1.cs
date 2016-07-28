@@ -66,15 +66,25 @@ namespace CaixaEletronico
 
         private void efetuaDepositoBtn_Click(object sender, EventArgs e)
         {
-            if (null == contaSelecionada)
-                MessageBox.Show("Por favor, selecione uma conta antes de realizar qualquer operação!");
-            else
+            try
             {
                 double valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
                 contaSelecionada.Deposita(valor);
                 Mostra(contaSelecionada);
+            }
+            catch (ArgumentException a)
+            {
+                MessageBox.Show(a.Message);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Erro na operação! Por favor, verifique novamente os dados informados e tente novamente");
+            }
+            finally
+            {
                 LimpaValor();
             }
+
         }
 
         private void LimpaValor()

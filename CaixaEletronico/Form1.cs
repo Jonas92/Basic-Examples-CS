@@ -68,13 +68,17 @@ namespace CaixaEletronico
         {
             try
             {
-                double valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
-                contaSelecionada.Deposita(valor);
+                contaSelecionada.Deposita(ValorInserido());
                 Mostra(contaSelecionada);
+                MessageBox.Show("Depósito efetuado com sucesso!");
             }
             catch (ArgumentException a)
             {
                 MessageBox.Show(a.Message);
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Você deve selecionar uma conta para efetuar esta operação!");
             }
             catch (Exception)
             {
@@ -87,6 +91,25 @@ namespace CaixaEletronico
 
         }
 
+        private double ValorInserido()
+        {
+            var valor = 0d;
+
+            try
+            {
+                valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
+            }
+            catch (FormatException)
+            {
+                throw new ArgumentException("Valor inválido!");
+            }
+
+            if (valor <= 0)
+                throw new ArgumentException("Valor inválido!");
+
+            return valor;
+        }
+
         private void LimpaValor()
         {
             valorParaOperacaoTxt.Text = "";
@@ -97,8 +120,7 @@ namespace CaixaEletronico
 
             try
             {
-                double valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
-                contaSelecionada.Saca(valor);
+                contaSelecionada.Saca(ValorInserido());
                 Mostra(contaSelecionada);
             }
             catch (SaldoInsuficienteException si)

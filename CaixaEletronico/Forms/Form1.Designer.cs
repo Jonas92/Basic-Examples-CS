@@ -1,4 +1,4 @@
-﻿namespace CaixaEletronico
+﻿namespace CaixaEletronico.Forms
 {
     partial class Form1
     {

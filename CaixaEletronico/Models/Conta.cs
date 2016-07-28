@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CaixaEletronico.Models
 {
-    class Conta
+    abstract class Conta
     {
         public long Numero { get; set; }
         public double Saldo { get; protected set; }
@@ -24,10 +24,7 @@ namespace CaixaEletronico.Models
             this.Saldo -= valor;
         }
 
-        public virtual void Deposita(double valor)
-        {
-            this.Saldo += valor;
-        }
+        public abstract void Deposita(double valor);
 
         public void Transfere(double valor, Conta destino)
         {
@@ -45,5 +42,11 @@ namespace CaixaEletronico.Models
             Conta outraConta = (Conta)obj;
             return this.Numero.Equals(outraConta.Numero);
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
     }
 }

@@ -42,7 +42,7 @@ namespace CaixaEletronico
         {
             Conta c, cc, cp;
 
-            c = new Conta(234, new Cliente("João das Couves", "893849"));
+            c = new ContaCorrente(234, new Cliente("João das Couves", "893849"));
             c.Deposita(5000);
 
             cc = new ContaCorrente(123, new Cliente("João das Laranjeiras", "783"));

@@ -11,5 +11,10 @@ namespace CaixaEletronico.Models
         public ContaCorrente(long numero, Cliente titular) : base(numero, titular)
         {
         }
+
+        public override void Deposita(double valor)
+        {
+            this.Saldo += valor;
+        }
     }
 }

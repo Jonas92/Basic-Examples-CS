@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CaixaEletronico.Models.Contas;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CaixaEletronico.Models
 {
-    public static class MyEnumExtensions
+    public static class ExtensaoDeTiposDeConta
     {
         public static string Descricao(this TiposDeConta val)
         {

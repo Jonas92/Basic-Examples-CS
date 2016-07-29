@@ -1,11 +1,12 @@
 ﻿using CaixaEletronico.Models;
+using CaixaEletronico.Models.Contas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CaixaEletronico.Util
+namespace CaixaEletronico.Util.GeradoresDeConta
 {
     abstract class TemplateGeradorDeConta : GeradorDeConta
     {
@@ -33,6 +34,7 @@ namespace CaixaEletronico.Util
 
             throw new Exception();
         }
+
         
     }
 }

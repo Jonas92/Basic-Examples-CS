@@ -1,5 +1,6 @@
 ﻿using CaixaEletronico.Exceptions;
 using CaixaEletronico.Models;
+using CaixaEletronico.Models.Contas;
 using CaixaEletronico.Util;
 using System;
 using System.Collections.Generic;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CaixaEletronico.Util
+namespace CaixaEletronico.Util.GeradoresDeConta
 {
     class GerenciadorDeImposto
     {

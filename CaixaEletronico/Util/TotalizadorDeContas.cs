@@ -1,4 +1,5 @@
 ﻿using CaixaEletronico.Models;
+using CaixaEletronico.Models.Contas;
 using System;
 using System.Collections.Generic;
 using System.Linq;

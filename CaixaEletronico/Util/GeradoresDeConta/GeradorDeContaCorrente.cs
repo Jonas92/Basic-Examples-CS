@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CaixaEletronico.Models;
+using CaixaEletronico.Models.Contas;
 
-namespace CaixaEletronico.Util
+namespace CaixaEletronico.Util.GeradoresDeConta
 {
     class GeradorDeContaCorrente : TemplateGeradorDeConta
     {

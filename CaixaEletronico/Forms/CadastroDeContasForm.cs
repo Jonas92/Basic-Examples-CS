@@ -1,6 +1,8 @@
 ﻿using CaixaEletronico.Exceptions;
 using CaixaEletronico.Models;
+using CaixaEletronico.Models.Contas;
 using CaixaEletronico.Util;
+using CaixaEletronico.Util.GeradoresDeConta;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

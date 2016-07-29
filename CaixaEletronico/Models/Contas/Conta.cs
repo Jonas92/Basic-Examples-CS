@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CaixaEletronico.Models
+namespace CaixaEletronico.Models.Contas
 {
     public abstract class Conta
     {

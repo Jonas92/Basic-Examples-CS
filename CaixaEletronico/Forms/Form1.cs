@@ -18,6 +18,7 @@ namespace CaixaEletronico.Forms
         private Conta[] contas = new Conta[3];
         private Conta contaSelecionada;
         private Conta contaParaTEDDOC;
+        private int quantidade;
 
         public Form1()
         {
@@ -32,12 +33,46 @@ namespace CaixaEletronico.Forms
             AdicionaContasNo(comboContasParaTEDDOC);
 
         }
+                
 
-        private void AdicionaContasNo(ComboBox combo)
+        #region Adiciona novas contas
+
+        public void AdicionaNova(Conta conta)
         {
-            foreach (Conta conta in contas)
-                combo.Items.Add(conta.Titular.Nome);
+            try
+            {
+                quantidade++;
+
+                if (this.quantidade >= this.contas.Length)
+                    AumentaEspacoParaContas();
+
+                this.contas[this.quantidade - 1] = conta;
+
+                AdicionaContasNo(comboContas);
+                AdicionaContasNo(comboContasParaTEDDOC);
+
+                MessageBox.Show("Conta " + conta.Numero + " cadastrada com sucesso!");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Erro ao cadastrar a nova conta!" + e.Message);
+            }
         }
+
+        private void AumentaEspacoParaContas()
+        {
+            Conta[] backUpDeContas = this.contas;
+
+            this.contas = new Conta[quantidade];
+
+            for (int i = 0; i < backUpDeContas.Length; i++)
+            {
+                this.contas[i] = backUpDeContas[i];
+            }
+        }
+        #endregion
+
+        #region Cria contas iniciais
 
         private void CriaContas()
         {
@@ -55,15 +90,30 @@ namespace CaixaEletronico.Forms
             contas[0] = c;
             contas[1] = cc;
             contas[2] = cp;
+
+            quantidade = 3;
         }
 
+        private void AdicionaContasNo(ComboBox combo)
+        {
+            combo.Items.Clear();
+
+            foreach (Conta conta in contas)
+                combo.Items.Add(conta.Titular.Nome);
+        }
+
+        #endregion
+
+        #region Mostra informações da conta no form
         private void Mostra(Conta conta)
         {
             numeroTxt.Text = Convert.ToString(conta.Numero);
             SaldoTxt.Text = Convert.ToString(conta.Saldo);
             titularTxt.Text = conta.Titular.Nome;
         }
+        #endregion
 
+        #region Efetua depósito
         private void efetuaDepositoBtn_Click(object sender, EventArgs e)
         {
             try
@@ -90,31 +140,9 @@ namespace CaixaEletronico.Forms
             }
 
         }
+        #endregion
 
-        private double ValorInserido()
-        {
-            var valor = 0d;
-
-            try
-            {
-                valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
-            }
-            catch (FormatException)
-            {
-                throw new ArgumentException("Valor inválido!");
-            }
-
-            if (valor <= 0)
-                throw new ArgumentException("Valor inválido!");
-
-            return valor;
-        }
-
-        private void LimpaValor()
-        {
-            valorParaOperacaoTxt.Text = "";
-        }
-
+        #region Efetua saque
         private void efetuaSaqueBtn_Click(object sender, EventArgs e)
         {
 
@@ -146,22 +174,9 @@ namespace CaixaEletronico.Forms
 
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            contaSelecionada = PesquisaContaPor(comboContas.SelectedIndex);
-            Mostra(contaSelecionada);
-        }
+        #endregion
 
-        private Conta PesquisaContaPor(int indiceDaContaNoCombo)
-        {
-            return contas[indiceDaContaNoCombo];
-        }
-
-        private void comboContasParaTEDDOC_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            contaParaTEDDOC = PesquisaContaPor(comboContasParaTEDDOC.SelectedIndex);
-        }
-
+        #region Efetua transferência
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -186,5 +201,72 @@ namespace CaixaEletronico.Forms
                 LimpaValor();
             }
         }
+
+        #endregion
+
+        #region Valida valor inserido pelo usuário
+        private double ValorInserido()
+        {
+            var valor = 0d;
+
+            try
+            {
+                valor = Convert.ToDouble(valorParaOperacaoTxt.Text);
+            }
+            catch (FormatException)
+            {
+                throw new ArgumentException("Valor inválido!");
+            }
+
+            if (valor <= 0)
+                throw new ArgumentException("Valor inválido!");
+
+            return valor;
+        }
+
+        #endregion
+
+        #region Limpa campo para entrada de valores
+        private void LimpaValor()
+        {
+            valorParaOperacaoTxt.Text = "";
+        }
+        #endregion
+
+        #region Seleciona as contas noos combos
+
+        #region Conta a ser mostrada
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            contaSelecionada = PesquisaContaPor(comboContas.SelectedIndex);
+            Mostra(contaSelecionada);
+        }
+        #endregion
+
+        #region Conta de destino para transferência
+
+        private void comboContasParaTEDDOC_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            contaParaTEDDOC = PesquisaContaPor(comboContasParaTEDDOC.SelectedIndex);
+        }
+
+        #endregion
+
+        private Conta PesquisaContaPor(int indiceDaContaNoCombo)
+        {
+            return contas[indiceDaContaNoCombo];
+        }
+
+        #endregion
+
+        #region Direciona para o Form de cadastro
+
+        private void novaContaBtn_Click(object sender, EventArgs e)
+        {
+            CadastroDeContasForm formularioDeCadastro = new CadastroDeContasForm(this);
+            formularioDeCadastro.ShowDialog();
+        }
+
+        #endregion
     }
 }

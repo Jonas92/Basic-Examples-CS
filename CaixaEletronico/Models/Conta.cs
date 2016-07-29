@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CaixaEletronico.Models
 {
-    abstract class Conta
+    public abstract class Conta
     {
         public long Numero { get; set; }
         public double Saldo { get; protected set; }

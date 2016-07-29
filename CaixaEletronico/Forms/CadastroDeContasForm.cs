@@ -22,6 +22,8 @@ namespace CaixaEletronico.Forms
             this.formularioPrincipal = formularioPrincipal;
         }
 
+        #region Cadastra a nova conta
+
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -46,12 +48,20 @@ namespace CaixaEletronico.Forms
             }
         }
 
+        #endregion
+
+        #region Limpa campos do formulário, após cadastrar
+
         private void LimpaFormDeCadastro()
         {
             nomeClienteTxt.Text = "";
             cpfClienteTxt.Text = "";
             numeroDaConta.Text = "";
         }
+
+        #endregion
+        
+        #region Recupera valores inseridos no formulário de cadastro
 
         private Conta ValoresInseridosNoForm()
         {
@@ -73,5 +83,7 @@ namespace CaixaEletronico.Forms
                     "verifique os dados informados e tente novamente!");
             }
         }
+
+        #endregion
     }
 }

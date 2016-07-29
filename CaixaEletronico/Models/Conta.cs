@@ -20,14 +20,15 @@ namespace CaixaEletronico.Models
             this.Titular = titular;
         }
 
+        public abstract void Deposita(double valor);
+
+        #region Saque
+
         public void Saca(double valor)
         {
             if (SaldoInsuficienteParaSacar(valor))
                 throw new SaldoInsuficienteException("Saldo insuficiente!");
 
-            if (valor <= 0)
-                throw new ArgumentException("Valor inválido!");
-            
             this.Saldo -= valor;
         }
 
@@ -36,20 +37,22 @@ namespace CaixaEletronico.Models
             return this.Saldo < valor;
         }
 
-        public abstract void Deposita(double valor);
+        #endregion
+
+        #region Transferência
 
         public void Transfere(double valor, Conta destino)
         {
-
-            if (valor <= 0)
-                throw new ArgumentException("Valor inválido!");
             if (this == destino)
                 throw new ArgumentException("As contas de origem e destino devem ser diferentes!");
-
 
             this.Saca(valor);
             destino.Deposita(valor);
         }
+
+        #endregion
+
+        #region Métodos ToString, Equals e HashCode
 
         public override string ToString()
         {
@@ -67,5 +70,6 @@ namespace CaixaEletronico.Models
             return base.GetHashCode();
         }
 
+        #endregion
     }
 }

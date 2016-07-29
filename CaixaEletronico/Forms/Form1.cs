@@ -51,8 +51,12 @@ namespace CaixaEletronico.Forms
 
             AdicionaContasNo(comboContas);
             AdicionaContasNo(comboContasParaTEDDOC);
-            
+
         }
+
+        #region Métodos auxiliares
+
+        #region Verifica se a conta já existe
 
         private bool JaExisteEssa(Conta contaParam)
         {
@@ -62,6 +66,10 @@ namespace CaixaEletronico.Forms
 
             return false;
         }
+
+        #endregion
+
+        #region Aumenta espaço para novas contas
 
         private void AumentaEspacoParaContas()
         {
@@ -74,6 +82,11 @@ namespace CaixaEletronico.Forms
                 this.contas[i] = backUpDeContas[i];
             }
         }
+
+        #endregion
+
+        #endregion
+
         #endregion
 
         #region Cria contas iniciais
@@ -147,6 +160,7 @@ namespace CaixaEletronico.Forms
         #endregion
 
         #region Efetua saque
+
         private void efetuaSaqueBtn_Click(object sender, EventArgs e)
         {
 
@@ -154,6 +168,7 @@ namespace CaixaEletronico.Forms
             {
                 contaSelecionada.Saca(ValorInserido());
                 Mostra(contaSelecionada);
+                MessageBox.Show("Saque efetuado com sucesso!");
             }
             catch (SaldoInsuficienteException si)
             {
@@ -181,12 +196,18 @@ namespace CaixaEletronico.Forms
         #endregion
 
         #region Efetua transferência
+
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
                 contaSelecionada.Transfere(ValorInserido(), PesquisaContaPor(comboContasParaTEDDOC.SelectedIndex));
                 Mostra(contaSelecionada);
+                MessageBox.Show("Transferência efetuada com sucesso!");
+            }
+            catch (SaldoInsuficienteException si)
+            {
+                MessageBox.Show(si.Message);
             }
             catch (ArgumentException a)
             {
@@ -209,6 +230,7 @@ namespace CaixaEletronico.Forms
         #endregion
 
         #region Valida valor inserido pelo usuário
+
         private double ValorInserido()
         {
             var valor = 0d;
@@ -231,10 +253,12 @@ namespace CaixaEletronico.Forms
         #endregion
 
         #region Limpa campo para entrada de valores
+
         private void LimpaValor()
         {
             valorParaOperacaoTxt.Text = "";
         }
+
         #endregion
 
         #region Seleciona as contas noos combos

@@ -1,5 +1,6 @@
 ﻿using CaixaEletronico.Exceptions;
 using CaixaEletronico.Models;
+using CaixaEletronico.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -93,25 +94,25 @@ namespace CaixaEletronico.Forms
         {
             string tipo = tipoContaCombo.SelectedItem.ToString();
 
-            if(TiposDeConta.ContaCorrente.Descricao().Equals(tipo))
-                return new ContaCorrente(numero, titular);
+            GeradorDeConta geradorDeConta = new GeradorDeContaCorrente(new GeradorDeContaPoupanca());
 
-            if (TiposDeConta.Poupanca.Descricao().Equals(tipo))
-                return new ContaPoupanca(numero, titular);
-
-            throw new Exception();
+            return geradorDeConta.GeraCom(numero, titular, tipo);
+            
         }
 
         #endregion
 
         #endregion
+
+        #region Popula o combo com os tipos de conta 
 
         private void CadastroDeContasForm_Load(object sender, EventArgs e)
         {
             tipoContaCombo.Items.Add("Conta Corrente");
             tipoContaCombo.Items.Add("Poupança");
-
-            //foreach(TiposDeConta tipoDeConta in TiposDeConta.values())
+            
         }
+
+        #endregion
     }
 }

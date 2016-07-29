@@ -33,30 +33,34 @@ namespace CaixaEletronico.Forms
             AdicionaContasNo(comboContasParaTEDDOC);
 
         }
-                
+
 
         #region Adiciona novas contas
 
         public void AdicionaNova(Conta conta)
         {
-            try
-            {
-                quantidade++;
+            if (JaExisteEssa(conta))
+                throw new ContaJaExistenteException("A conta " + conta.Numero + " já está cadastrada!");
 
-                if (this.quantidade >= this.contas.Length)
-                    AumentaEspacoParaContas();
+            quantidade++;
 
-                this.contas[this.quantidade - 1] = conta;
+            if (this.quantidade >= this.contas.Length)
+                AumentaEspacoParaContas();
 
-                AdicionaContasNo(comboContas);
-                AdicionaContasNo(comboContasParaTEDDOC);
+            this.contas[this.quantidade - 1] = conta;
 
-                MessageBox.Show("Conta " + conta.Numero + " cadastrada com sucesso!");
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Erro ao cadastrar a nova conta!" + e.Message);
-            }
+            AdicionaContasNo(comboContas);
+            AdicionaContasNo(comboContasParaTEDDOC);
+            
+        }
+
+        private bool JaExisteEssa(Conta contaParam)
+        {
+            foreach (Conta conta in this.contas)
+                if (conta.Equals(contaParam))
+                    return true;
+
+            return false;
         }
 
         private void AumentaEspacoParaContas()

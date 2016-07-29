@@ -1,4 +1,5 @@
-﻿using CaixaEletronico.Models;
+﻿using CaixaEletronico.Exceptions;
+using CaixaEletronico.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,16 +24,54 @@ namespace CaixaEletronico.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string nome = nomeClienteTxt.Text;
-            string cpf = cpfClienteTxt.Text;
 
-            Cliente cliente = new Cliente(nome, cpf);
+            try
+            {
+                Conta conta = ValoresInseridosNoForm();
+                formularioPrincipal.AdicionaNova(conta);
+                MessageBox.Show("Conta " + conta.Numero + " cadastrada com sucesso!");
+                LimpaFormDeCadastro();
+            }
+            catch (ContaJaExistenteException cje)
+            {
+                MessageBox.Show(cje.Message);
+            }
+            catch (ArgumentException a)
+            {
+                MessageBox.Show(a.Message);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Erro ao cadastrar a nova conta!");
+            }
+        }
 
-            long numero = Convert.ToInt32(numeroDaConta.Text);
-            Cliente titular = cliente;
-            Conta conta = new ContaCorrente(numero, titular);
+        private void LimpaFormDeCadastro()
+        {
+            nomeClienteTxt.Text = "";
+            cpfClienteTxt.Text = "";
+            numeroDaConta.Text = "";
+        }
 
-            formularioPrincipal.AdicionaNova(conta);
+        private Conta ValoresInseridosNoForm()
+        {
+            try
+            {
+                string nome = nomeClienteTxt.Text;
+                string cpf = cpfClienteTxt.Text;
+
+                Cliente cliente = new Cliente(nome, cpf);
+
+                long numero = Convert.ToInt32(numeroDaConta.Text);
+                Cliente titular = cliente;
+                Conta conta = new ContaCorrente(numero, titular);
+                return conta;
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("Valores inconsistentes, por favor" +
+                    "verifique os dados informados e tente novamente!");
+            }
         }
     }
 }

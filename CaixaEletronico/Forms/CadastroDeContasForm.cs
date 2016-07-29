@@ -60,7 +60,9 @@ namespace CaixaEletronico.Forms
         }
 
         #endregion
-        
+
+        #region Devolve uma instânca de conta pronta para ser salva
+
         #region Recupera valores inseridos no formulário de cadastro
 
         private Conta ValoresInseridosNoForm()
@@ -74,8 +76,7 @@ namespace CaixaEletronico.Forms
 
                 long numero = Convert.ToInt32(numeroDaConta.Text);
                 Cliente titular = cliente;
-                Conta conta = new ContaCorrente(numero, titular);
-                return conta;
+                return InstanciaDeContaCom(numero, titular);
             }
             catch (Exception)
             {
@@ -85,5 +86,32 @@ namespace CaixaEletronico.Forms
         }
 
         #endregion
+
+        #region Devolve uma conta, do tipo específico desejado
+
+        private Conta InstanciaDeContaCom(long numero, Cliente titular)
+        {
+            string tipo = tipoContaCombo.SelectedItem.ToString();
+
+            if(TiposDeConta.ContaCorrente.Descricao().Equals(tipo))
+                return new ContaCorrente(numero, titular);
+
+            if (TiposDeConta.Poupanca.Descricao().Equals(tipo))
+                return new ContaPoupanca(numero, titular);
+
+            throw new Exception();
+        }
+
+        #endregion
+
+        #endregion
+
+        private void CadastroDeContasForm_Load(object sender, EventArgs e)
+        {
+            tipoContaCombo.Items.Add("Conta Corrente");
+            tipoContaCombo.Items.Add("Poupança");
+
+            //foreach(TiposDeConta tipoDeConta in TiposDeConta.values())
+        }
     }
 }

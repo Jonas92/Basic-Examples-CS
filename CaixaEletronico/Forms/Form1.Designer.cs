@@ -41,6 +41,7 @@
             this.comboContasParaTEDDOC = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.novaContaBtn = new System.Windows.Forms.Button();
+            this.excluir_Conta_Btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -148,7 +149,7 @@
             // 
             // novaContaBtn
             // 
-            this.novaContaBtn.Location = new System.Drawing.Point(110, 34);
+            this.novaContaBtn.Location = new System.Drawing.Point(158, 34);
             this.novaContaBtn.Name = "novaContaBtn";
             this.novaContaBtn.Size = new System.Drawing.Size(75, 23);
             this.novaContaBtn.TabIndex = 13;
@@ -156,11 +157,22 @@
             this.novaContaBtn.UseVisualStyleBackColor = true;
             this.novaContaBtn.Click += new System.EventHandler(this.novaContaBtn_Click);
             // 
+            // excluir_Conta_Btn
+            // 
+            this.excluir_Conta_Btn.Location = new System.Drawing.Point(77, 34);
+            this.excluir_Conta_Btn.Name = "excluir_Conta_Btn";
+            this.excluir_Conta_Btn.Size = new System.Drawing.Size(75, 23);
+            this.excluir_Conta_Btn.TabIndex = 14;
+            this.excluir_Conta_Btn.Text = "Excluir";
+            this.excluir_Conta_Btn.UseVisualStyleBackColor = true;
+            this.excluir_Conta_Btn.Click += new System.EventHandler(this.excluir_Conta_Btn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.excluir_Conta_Btn);
             this.Controls.Add(this.novaContaBtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboContasParaTEDDOC);
@@ -196,6 +208,7 @@
         private System.Windows.Forms.ComboBox comboContasParaTEDDOC;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button novaContaBtn;
+        private System.Windows.Forms.Button excluir_Conta_Btn;
     }
 }
 

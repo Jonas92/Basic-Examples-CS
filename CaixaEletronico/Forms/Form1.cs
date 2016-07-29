@@ -117,7 +117,8 @@ namespace CaixaEletronico.Forms
             combo.Items.Clear();
 
             foreach (Conta conta in contas)
-                combo.Items.Add(conta.Titular.Nome);
+                if (null != conta)
+                    combo.Items.Add(conta.Titular.Nome);
         }
 
         #endregion
@@ -295,6 +296,91 @@ namespace CaixaEletronico.Forms
             CadastroDeContasForm formularioDeCadastro = new CadastroDeContasForm(this);
             formularioDeCadastro.ShowDialog();
         }
+
+        #endregion
+
+        #region Remove Conta
+
+        #region Ação do botão
+
+        private void excluir_Conta_Btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int indice = comboContas.SelectedIndex;
+                Conta contaExcluida = contas[indice];
+                RemoveContaDe(indice);
+                AtualizarListagemDeContasSem(indice);
+                MessageBox.Show("Conta " + contaExcluida.Numero + " excluída com sucesso!");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show("Por favor selecione uma conta para efetuar esta operação!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao excluir a conta!" + ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Método de remoção de contas
+
+        private void RemoveContaDe(int posicao)
+        {
+
+            if (posicao < 0)
+                throw new IndexOutOfRangeException();
+
+            this.contas[posicao] = null;
+        }
+
+        #endregion
+
+        #region Atualizando a listagem e o form após a remoção da conta
+
+        private void AtualizarListagemDeContasSem(int indice)
+        {
+            ReorganizaAsContasSemO(indice);
+            AdicionaContasNo(comboContas);
+            AdicionaContasNo(comboContasParaTEDDOC);
+            LimpaFormulario();
+            
+        }
+
+        #region Reorganiza o array de contas
+
+        private void ReorganizaAsContasSemO(int indice)
+        {
+            for (int i = indice; i < this.contas.Length; i++)
+            {
+                if (this.contas[i] == null)
+                {
+                    if ((i + 1) < this.contas.Length)
+                    {
+                        this.contas[i] = this.contas[i + 1];
+                        this.contas[i + 1] = null;
+                    }
+
+                }
+            }
+        }
+
+        #endregion
+
+        #region Limpa os campos após a exclusão
+
+        private void LimpaFormulario()
+        {
+            numeroTxt.Text = "";
+            SaldoTxt.Text = "";
+            titularTxt.Text = "";
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
     }
